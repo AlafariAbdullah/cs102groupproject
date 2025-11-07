@@ -26,7 +26,18 @@ public class Projectcs102 {
 
         }
         if (choice.equalsIgnoreCase("Sign in") || choice.equalsIgnoreCase("1")) {
-
+            System.out.println("Enter username: ");
+            String loginUsername = userInput.nextLine();
+            System.out.println("Enter password: ");
+            String loginPassword = userInput.nextLine();
+            
+            boolean success = signIn(loginUsername, loginPassword);
+            
+            if (success) {
+                System.out.println("Access granted!");
+            } else {
+                System.out.println("Access denied.");
+            }
         } else if (choice.equalsIgnoreCase("Sign up") || choice.equalsIgnoreCase("2")) {
         System.out.println("Type (1) if you are a student, (2) if you are a faculty"
                 + "member, and (3) if you are a support employee");
@@ -139,4 +150,36 @@ public class Projectcs102 {
         System.out.println("Error writing to file: " + e.getMessage());
     }
 }
+    public static boolean signIn(String username, String password) {
+        try (Scanner sc = new Scanner(new File("users.txt"))) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+                if(line.isEmpty()) {
+                    continue;
+                }
+                
+                if(line.endsWith(";")) {
+                    line = line.substring(0, line.length() - 1);
+                }
+                
+                String[] fields = line.split(",");
+                
+                if (fields.length >= 6) {
+                    String storedUsername = fields[3]; //field 3 is username no matter what
+                    String storedPassword = fields[5]; //field 5 is password no matter what
+                    
+                    if (storedUsername.equalsIgnoreCase(username) && storedPassword.equals(password)) {
+                        System.out.println("Sign in successful. Welcome" + fields[1] + " " + fields[2] + "!");
+                        return true; //WIP here should sign in
+                    }
+                }
+            }
+            System.out.println("Invalid username or password");
+            return false; //WIP here should not sign in and continue loop in main
+        }
+        catch (Exception e) {
+            System.out.println("Error reading users file: "+ e.getMessage());
+            return false; // WIP here should not sign in and continue loop in main
+        }
+    }
 }
