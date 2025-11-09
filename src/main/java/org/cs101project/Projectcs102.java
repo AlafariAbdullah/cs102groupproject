@@ -21,11 +21,14 @@ public class Projectcs102 {
 
         }
         if (choice.equalsIgnoreCase("Sign in") || choice.equalsIgnoreCase("1")) {
-            System.out.println("Enter username: ");
+            System.out.println("");
+            System.out.println("-------(Sign in)-------");
+            System.out.println("");
+            System.out.print("Enter username: ");
             String loginUsername = userInput.nextLine();
-            System.out.println("Enter password: ");
+            System.out.print("Enter password: ");
             String loginPassword = userInput.nextLine();
-
+            System.out.println("");
             boolean success = signIn(loginUsername, loginPassword);
 
             if (success) {
@@ -163,7 +166,7 @@ public class Projectcs102 {
                     String storedPassword = fields[5]; //field 5 is password no matter what
 
                     if (storedUsername.equalsIgnoreCase(username) && storedPassword.equals(password)) {
-                        System.out.println("Sign in successful. Welcome" + fields[1] + " " + fields[2] + "!");
+                        System.out.println("Sign in successful. Welcome, " + fields[1] + " " + fields[2] + "!");
                         return true; //WIP here should sign in
                     }
                 }
