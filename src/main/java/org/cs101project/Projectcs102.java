@@ -15,7 +15,8 @@ public class Projectcs102 {
         String[] possibleInput = {"Sing in", "Sign up", "Exit", "1", "2", "3"};
         String choice = null;
         while (choice == null || !includes(possibleInput, choice)) {
-            System.out.println("Welcome! \n Type (Sign in) OR (1) to sign into your account \n or type (Sign up) OR (2 ) to regiser \n or type (Exit) (3) to quit the app");
+            System.out.println("Welcome! \n Type (1) OR (Sign in) to sign into your account. \n Type (2) OR (Sign up) to regiser. \n Type (3) OR (Exit) to quit the app.");
+            System.out.print("Enter your choice: ");
             choice = userInput.nextLine();
 
         }
@@ -33,11 +34,13 @@ public class Projectcs102 {
                 System.out.println("Access denied.");
             }
         } else if (choice.equalsIgnoreCase("Sign up") || choice.equalsIgnoreCase("2")) {
-            System.out.println("Type (1) if you are a student, (2) if you are a faculty"
-                    + "member, and (3) if you are a support employee");
+            System.out.println("");
+            System.out.println("-------(Sign up)-------");
+            System.out.println("\n Type (1) If you are a student.\n Type (2) If you are a faculty member.\n Type (3) If you are a support employee.");
             System.out.print("Enter your choice: ");
             String type = userInput.nextLine();
 
+            System.out.println("");
             System.out.print("First name: ");
             String fname = userInput.nextLine();
             System.out.print("Last name: ");
