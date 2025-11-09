@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.cs101project;
 
-/**
- *
- * @author Abdelrahman
- */
 public class Student extends Person {
+
     private String status;
     private String major;
     private Award[] Awards;
@@ -43,6 +36,5 @@ public class Student extends Person {
     public void setAwards(Award[] Awards) {
         this.Awards = Awards;
     }
-    
-    
+
 }
