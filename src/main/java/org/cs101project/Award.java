@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.cs101project;
 
-/**bhhbhbhbbh
- *
- * @author Abdelrahman
- */
 public class Award {
+
     private String date;
     private String awardName;
     private String issuer;
@@ -42,6 +35,5 @@ public class Award {
     public void setIssuer(String issuer) {
         this.issuer = issuer;
     }
-    
-    
+
 }

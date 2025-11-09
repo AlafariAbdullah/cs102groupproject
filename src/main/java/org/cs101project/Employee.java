@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.cs101project;
 
-/**
- *
- * @author Abdelrahman
- */
 public class Employee extends Person {
+
     private String department;
     private String officeNumber;
 
@@ -33,6 +26,5 @@ public class Employee extends Person {
     public void setOfficeNumber(String officeNumber) {
         this.officeNumber = officeNumber;
     }
-    
-    
+
 }

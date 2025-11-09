@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.cs101project;
 
 import org.cs101project.Employee;
 
-/**
- *
- * @author Abdelrahman
- */
 public class Faculty extends Employee {
+
     private String rank;
     private String specialisation;
 
@@ -19,5 +12,5 @@ public class Faculty extends Employee {
         this.rank = rank;
         this.specialisation = specialisation;
     }
-    
+
 }
