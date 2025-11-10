@@ -1,14 +1,21 @@
 package org.cs101project;
 
-import org.cs101project.Employee;
-
 public class SupportEmployee extends Employee {
 
     private String jobDescription;
 
-    public SupportEmployee(String jobDescription, String department, String officeNumber, String firstName, String surname, String username, String password, String dateOfBirth) {
-        super(department, officeNumber, firstName, surname, username, password, dateOfBirth);
-        this.jobDescription = jobDescription;
+    public SupportEmployee(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum, String jobDesc){
+        super(fname, lname, username, password, birthDate, type, department,officeNum);
+        this.jobDescription = jobDesc;
     }
-
+    @Override
+    public String toString(){
+        return super.toString() + "," + this.getJobDescription();
+    }
+    public String getJobDescription(){
+        return this.jobDescription;
+    }
+    public void setJobDescription(String jobDesc){
+        this.jobDescription = jobDesc;
+    }
 }

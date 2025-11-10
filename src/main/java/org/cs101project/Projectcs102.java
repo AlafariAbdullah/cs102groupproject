@@ -1,6 +1,7 @@
 package org.cs101project;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 
 import java.util.Scanner;
@@ -39,9 +40,19 @@ public class Projectcs102 {
         } else if (choice.equalsIgnoreCase("Sign up") || choice.equalsIgnoreCase("2")) {
             System.out.println("");
             System.out.println("-------(Sign up)-------");
-            System.out.println("\n Type (1) If you are a student.\n Type (2) If you are a faculty member.\n Type (3) If you are a support employee.");
-            System.out.print("Enter your choice: ");
-            String type = userInput.nextLine();
+
+            String type = "";
+            do{
+                if (!type.equals(""))
+                    System.out.println("Invalid Input");
+                System.out.println("\n Type (1) If you are a student.\n Type (2) If you are a faculty member.\n Type (3) If you are a support employee.\n Type (4) to exit");
+                System.out.print("Enter your choice: ");
+                type = userInput.nextLine();
+                if (type.equals("4"))
+                System.exit(1);
+            }
+            while (!type.equals("1") && !type.equals("2") && !type.equals("3"));
+        
 
             System.out.println("");
             System.out.print("First name: ");
@@ -55,49 +66,63 @@ public class Projectcs102 {
             System.out.print("Password: ");
             String password = userInput.nextLine();
 
-            if (type.equals("1")) {
-                System.out.print("Status (Freshman, Sophomore, etc): ");
-                String status = userInput.nextLine();
-                System.out.print("Major: ");
-                String major = userInput.nextLine();
-                System.out.println("Student account created for " + fname + " " + lname);
-                saveUserToFile(type, fname, lname, username, Date, password,
-                        status, major, null, null, null, null, null);
-                //Null fields mean this parameter is irrelevant for this person type (student for example)
 
-            } else if (type.equals("2")) {
-                System.out.print("Department: ");
-                String dept = userInput.nextLine();
-                System.out.print("Office number: ");
-                String office = userInput.nextLine();
-                System.out.print("Rank: ");
-                String rank = userInput.nextLine();
-                System.out.print("Specialization: ");
-                String spec = userInput.nextLine();
-                System.out.println("Faculty account created for " + fname + " " + lname);
-                saveUserToFile(type, fname, lname, username, Date, password,
-                        null, null, dept, office, rank, spec, null);
+            switch (type){
+                case "1": {
+                    type = "Student";
+                    System.out.print("Status (Freshman, Sophomore, etc): ");
+                    String status = userInput.nextLine();
+                    System.out.print("Major: ");
+                    String major = userInput.nextLine();
 
-            } else if (type.equals("3")) {
-                System.out.print("Department: ");
-                String dept = userInput.nextLine();
-                System.out.print("Office number: ");
-                String office = userInput.nextLine();
-                System.out.print("Job description: ");
-                String job = userInput.nextLine();
-                System.out.println("Support & Services account created for " + fname + " " + lname);
-                saveUserToFile(type, fname, lname, username, Date, password,
-                        null, null, dept, office, null, null, job);
+                    // Sample Data!!! Awards logic should be done
+                    Award[] Awards = new Award[5];
+                    for (int i = 0; i < Awards.length; i++) {
+                        Awards[i] = new Award("CCNA","12/2/2024","CISCO");
+                    }
+                    System.out.print("Awards:");
+                    //  TO DOO AWARDS IS TO DO
 
-            } else {
-                System.out.println("Invalid choice");
+                    System.out.println("Student account created for " + fname + " " + lname);
+                    saveUserToFile(new Student(fname,lname,username,password, Date, type, status, major, Awards));                    
+                    break;
+                }    
+                case "2": {
+                    type = "Faculty";
+                    System.out.print("Department: ");
+                    String dept = userInput.nextLine();
+                    System.out.print("Office number: ");
+                    String office = userInput.nextLine();
+                    System.out.print("Rank: ");
+                    String rank = userInput.nextLine();
+                    System.out.print("Specialization: ");
+                    String spec = userInput.nextLine();
+                    System.out.println("Faculty account created for " + fname + " " + lname);
+                    saveUserToFile(new Faculty(fname, lname, username, password, Date, type, dept, office, rank, spec));
+                    break;
+    
+                }
+                case "3": {
+                    type = "SupportEmployee" ;
+                    System.out.print("Department: ");
+                    String dept = userInput.nextLine();
+                    System.out.print("Office number: ");
+                    String office = userInput.nextLine();
+                    System.out.print("Job description: ");
+                    String job = userInput.nextLine();
+                    System.out.println("Support & Services account created for " + fname + " " + lname);
+                    saveUserToFile(new SupportEmployee(fname, lname, username, password, Date, type, dept, office, job));
+                    break;
+                }
             }
+            
+        }
+            else if (choice.equalsIgnoreCase("Exit") || choice.equalsIgnoreCase("3")) {
+                System.exit(1);
 
             System.out.println("(Sign up is complete)");
-        } else if (choice.equalsIgnoreCase("Exit") || choice.equalsIgnoreCase("3")) {
-            System.exit(1);
+        } 
         }
-    }
 
     public static boolean includes(String[] arr, String str) {
         for (int i = 0; i < arr.length; i++) {
@@ -108,44 +133,48 @@ public class Projectcs102 {
         return false;
     }
 
-    public static void saveUserToFile(
-            String type,
-            String fname,
-            String lname,
-            String username,
-            String dob,
-            String password,
-            String status,
-            String major,
-            String department,
-            String office,
-            String rank,
-            String specialization,
-            String job
-    ) {
-        try (PrintWriter pw = new PrintWriter(new File("users.txt"))) {
 
-            // Write all data in one line separated by commas, end with semicolon
-            pw.print(type + ","
-                    + fname + ","
-                    + lname + ","
-                    + username + ","
-                    + dob + ","
-                    + password + ","
-                    + status + ","
-                    + major + ","
-                    + department + ","
-                    + office + ","
-                    + rank + ","
-                    + specialization + ","
-                    + job + ";");
 
-            pw.println(); // new line for next user
+
+
+
+    public static void saveUserToFile(Student student) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
+
+            pw.println(student.toString() + ";");
+
 
         } catch (Exception e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+    public static void saveUserToFile(Faculty faculty) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
+
+            pw.println(faculty.toString() + ";");
+
+
+        } catch (Exception e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+    public static void saveUserToFile(SupportEmployee support) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
+
+            pw.println(support.toString() + ";");
+
+
+        } catch (Exception e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
 
     public static boolean signIn(String username, String password) {
         try (Scanner sc = new Scanner(new File("users.txt"))) {

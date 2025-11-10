@@ -5,12 +5,15 @@ public class Employee extends Person {
     private String department;
     private String officeNumber;
 
-    public Employee(String department, String officeNumber, String firstName, String surname, String username, String password, String dateOfBirth) {
-        super(firstName, surname, username, password, dateOfBirth);
+    public Employee(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum){
+        super(fname, lname,username,password,birthDate, type);
         this.department = department;
-        this.officeNumber = officeNumber;
+        this.officeNumber = officeNum;
     }
-
+    @Override
+    public String toString(){
+        return super.toString() + ","+this.getDepartment()+","+this.getOfficeNumber();
+    }
     public String getDepartment() {
         return department;
     }

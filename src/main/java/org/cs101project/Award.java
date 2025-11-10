@@ -6,12 +6,15 @@ public class Award {
     private String awardName;
     private String issuer;
 
-    public Award(String date, String awardName, String issuer) {
-        this.date = date;
+    public Award(String awardName, String date, String issuer) {
         this.awardName = awardName;
+        this.date = date;
         this.issuer = issuer;
     }
-
+    @Override
+    public String toString(){
+        return this.getAwardName() + ": " + this.getIssuer() + ", " + this.getDate() ;
+    }
     public String getDate() {
         return date;
     }

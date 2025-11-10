@@ -1,2 +1,10 @@
-1,Abdelrahman,Tarek,ATarek,8/9/2006,ABCDEFGH1234!,Freshman,SE,null,null,null,null,null;
-2.Abdullah,Ameen,Alafari,16/11/2005,Alafar!Ab,Sophmore,CS,null,null,null,null,null
+type,fname,lname,username,dob,password,status,major,department,office,rank,specialization,job
+Student,Abdullah,Alafari,aAlafari,16/11/2005,P@ssw0rd,Sophmore,Computer Science,null,null,null,null,null;
+Abdullah,almohamadi,amohammed,6<354:6354<,23/12/2023,Freshman,SE
+Awards: 
+
+CCNA: CISCO, 12/2/2024
+CCNA: CISCO, 12/2/2024
+CCNA: CISCO, 12/2/2024
+CCNA: CISCO, 12/2/2024
+CCNA: CISCO, 12/2/2024

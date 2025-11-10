@@ -6,11 +6,19 @@ public class Student extends Person {
     private String major;
     private Award[] Awards;
 
-    public Student(String status, String major, Award[] Awards, String firstName, String surname, String username, String password, String dateOfBirth) {
-        super(firstName, surname, username, password, dateOfBirth);
+    public Student(String fname,String lname,String username,String password,String birthDate, String type,String status, String major,Award[] Awards){
+        super(fname, lname,username,password,birthDate, type);
         this.status = status;
         this.major = major;
         this.Awards = Awards;
+    }
+    @Override
+    public String toString(){
+        String awards = "Awards: \n";
+        for (Award a: this.Awards){
+            awards = awards + "\n" + a.toString();
+        }
+        return super.toString() + "," + this.getStatus() + "," + this.getMajor() + "\n" + awards;
     }
 
     public String getStatus() {
@@ -30,7 +38,7 @@ public class Student extends Person {
     }
 
     public Award[] getAwards() {
-        return Awards;
+        return this.Awards;
     }
 
     public void setAwards(Award[] Awards) {

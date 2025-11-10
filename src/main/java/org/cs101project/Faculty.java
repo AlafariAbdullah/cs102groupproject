@@ -1,16 +1,30 @@
 package org.cs101project;
 
-import org.cs101project.Employee;
-
 public class Faculty extends Employee {
 
-    private String rank;
+    private String rank; // (lecturer, assistant professor, associate professor or professor)
     private String specialisation;
 
-    public Faculty(String rank, String specialisation, String department, String officeNumber, String firstName, String surname, String username, String password, String dateOfBirth) {
-        super(department, officeNumber, firstName, surname, username, password, dateOfBirth);
+    public Faculty(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum, String rank, String specialization){
+        super(fname, lname, username, password, birthDate, type, department,officeNum);
         this.rank = rank;
-        this.specialisation = specialisation;
+        this.specialisation = specialization;
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "," + this.getRank() +","+this.getSpecialisation();
+    }
+    public String getRank(){
+        return this.rank;
+    }
+    public String getSpecialisation(){
+        return this.specialisation;
+    }
+    public void setRank(String newRank){
+        this.rank = newRank;
+    }
+    public void SetSpecialisation(String newSpecialisation){
+        this.specialisation = newSpecialisation;
     }
 
 }
