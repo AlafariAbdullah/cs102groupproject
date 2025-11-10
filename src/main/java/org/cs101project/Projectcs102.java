@@ -1,9 +1,9 @@
 package org.cs101project;
 
-import java.io.File;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.PrintWriter;
-
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Projectcs102 {
@@ -173,38 +173,31 @@ public class Projectcs102 {
 
 
 
-
-
-
     public static boolean signIn(String username, String password) {
+        password = Cipher.encryptSubstitution(password);
+        HashMap<String, String> usernamePassword = new HashMap<>();
+        StringBuilder block = new StringBuilder();
         try (Scanner sc = new Scanner(new File("users.txt"))) {
             while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-                if (line.isEmpty()) {
-                    continue;
-                }
-
-                if (line.endsWith(";")) {
-                    line = line.substring(0, line.length() - 1);
-                }
-
-                String[] fields = line.split(",");
-
-                if (fields.length >= 6) {
-                    String storedUsername = fields[3]; //field 3 is username no matter what
-                    String storedPassword = fields[5]; //field 5 is password no matter what
-
-                    if (storedUsername.equalsIgnoreCase(username) && storedPassword.equals(password)) {
-                        System.out.println("Sign in successful. Welcome, " + fields[1] + " " + fields[2] + "!");
-                        return true; //WIP here should sign in
-                    }
+                String line = sc.nextLine();
+                if (line.isEmpty()) continue;
+                block.append(line).append("\n");
+                if (line.endsWith(";")){
+                    String userData = block.toString();
+                    userData.substring(0,userData.length()-1).trim();
+                    String[] fields = userData.split(",");
+                    usernamePassword.put(fields[2],fields[3]);
+                    block.setLength(0);
                 }
             }
-            System.out.println("Invalid username or password");
-            return false; //WIP here should not sign in and continue loop in main
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println("Error reading users file: " + e.getMessage());
             return false; // WIP here should not sign in and continue loop in main
         }
+        System.out.println(usernamePassword);
+        return usernamePassword.containsKey(username) && usernamePassword.get(username).equals(password);
+
+    
     }
 }
