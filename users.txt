@@ -1,1 +1,2 @@
 1,Abdelrahman,Tarek,ATarek,8/9/2006,ABCDEFGH1234!,Freshman,SE,null,null,null,null,null;
+2.Abdullah,Ameen,Alafari,16/11/2005,Alafar!Ab,Sophmore,CS,null,null,null,null,null
