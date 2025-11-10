@@ -11,9 +11,6 @@ public class Projectcs102 {
         // System.out.println("Hi");    
         Scanner userInput = new Scanner(System.in);
 
-
-
-
         // Main menu
         String[] possibleInput = {"Sing in", "Sign up", "Exit", "1", "2", "3"};
         String choice = null;
