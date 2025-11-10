@@ -9,6 +9,6 @@ public class Person {
     private String birthDate;
 
     public Person(String n, String s, String u, String p, String bd) {
-        this.password = Cypher.encryptSubstitution(p);
+        this.password = Cipher.encryptSubstitution(p);
     }
 }
