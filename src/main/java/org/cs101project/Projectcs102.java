@@ -22,6 +22,9 @@ public class Projectcs102 {
 
         }
         if (choice.equalsIgnoreCase("Sign in") || choice.equalsIgnoreCase("1")) {
+            boolean success = false;
+            int attempts = 0;
+            do {
             System.out.println("");
             System.out.println("-------(Sign in)-------");
             System.out.println("");
@@ -30,12 +33,27 @@ public class Projectcs102 {
             System.out.print("Enter password: ");
             String loginPassword = userInput.nextLine();
             System.out.println("");
-            boolean success = signIn(loginUsername, loginPassword);
+            attempts ++;
+            success = signIn(loginUsername, loginPassword);
+            if (!success) System.out.println("Access denied. "+ "attempts: " + (attempts));
+            } while (success == false && attempts < 3);
 
-            if (success) {
+            if (success && attempts<3) {
+                // Program to Display/Edit information
                 System.out.println("Access granted!");
+
+
+
+
+
+
+
+
+
+
+
             } else {
-                System.out.println("Access denied.");
+                System.out.println("Access denied and attempts past 3.");
             }
         } else if (choice.equalsIgnoreCase("Sign up") || choice.equalsIgnoreCase("2")) {
             System.out.println("");
@@ -121,8 +139,9 @@ public class Projectcs102 {
                 System.exit(1);
 
             System.out.println("(Sign up is complete)");
+            }
         } 
-        }
+
 
     public static boolean includes(String[] arr, String str) {
         for (int i = 0; i < arr.length; i++) {
@@ -195,7 +214,6 @@ public class Projectcs102 {
             System.out.println("Error reading users file: " + e.getMessage());
             return false; // WIP here should not sign in and continue loop in main
         }
-        System.out.println(usernamePassword);
         return usernamePassword.containsKey(username) && usernamePassword.get(username).equals(password);
 
     
