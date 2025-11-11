@@ -1,16 +1,9 @@
-a,a,aa,456,321,Freshman,CS
-Awards: 
-
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024;
-abdullah,ameen,aameen,4567,231,fresh,cs
-Awards: 
-
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024
-CCNA: CISCO, 12/2/2024;
+Student,Ahmed,Balatif,ABal,45678,10/2/2024,Freshamn,CS,
+Awards:;
+Student,Moham,Ali,MA,4567,ds,Fresh,CS,
+Awards:
+CCNA-CISCO-10/10
+PSUHACKATHON-Prince Sultan University-10/2025
+CCNA2-CISCO2-10/2023;
+Faculty,Waleed,Sanie,WalSa,4567,10/10/1990,CS,123,Prof,Programming;
+Support Employee,Majd,Lass,MajLas,4567,10/10/1980,Clean,123,Worker;

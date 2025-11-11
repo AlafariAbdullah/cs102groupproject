@@ -4,19 +4,20 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Projectcs102 {
-    private static HashMap<String,String> userPass;
+    private static HashMap<String,String> userPass = new HashMap<String,String>();
     public static void main(String[] args) {
         // System.out.println("Hi");    
         Scanner userInput = new Scanner(System.in);
-       
-        userPass = loadHistory();
-        
-        Student me = new Student("Abdullah", "Alafari", "AAAAlafari", "12345", 
-        "16/11/2005", null, null, null)
-       
+
+        LinkedList<Person> Persons = getPersonsHistory();
+        getUserPassFromPersons(Persons);
+
+        System.out.println(userPass);
+
         // Main menu
         String[] possibleInput = {"Sing in", "Sign up", "Exit", "1", "2", "3"};
         String choice = null;
@@ -91,7 +92,6 @@ public class Projectcs102 {
             username = userInput.nextLine();
            }while (usernameExists(username));
 
-
             System.out.print("Date of birth: ");
             String Date = userInput.nextLine();
             System.out.print("Password: ");
@@ -107,11 +107,24 @@ public class Projectcs102 {
                     String major = userInput.nextLine();
 
                     // Sample Data!!! Awards logic should be done
-                    Award[] Awards = new Award[5];
-                    for (int i = 0; i < Awards.length; i++) {
-                        Awards[i] = new Award("CCNA","12/2/2024","CISCO");
+                    ArrayList<Award> Awards = new ArrayList<Award>();
+                    System.out.println("Awards: Do you have any Awards?");
+                    if (userInput.nextLine().equalsIgnoreCase("yes")){
+                        System.out.println("How many Awards do you have? ");
+                        int awardsNum = userInput.nextInt();
+                        userInput.nextLine(); //To remove buffer \n
+                        for (int i = 0; i < awardsNum; i++) {
+                            System.out.println("Award #"+(i+1));
+                            System.out.print("Name: ");
+                            String name = userInput.nextLine();
+                            System.out.print("Date: ");
+                            String date = userInput.nextLine();
+                            System.out.print("Issuer: ");
+                            String issuer = userInput.nextLine();
+                            Awards.add(new Award(name, date,issuer));
+                        }
                     }
-                    System.out.print("Awards:");
+                    else{}
                     //  TO DOO AWARDS IS TO DO
 
                     System.out.println("Student account created for " + fname + " " + lname);
@@ -170,30 +183,10 @@ public class Projectcs102 {
 
 
 
-    public static void saveUserToFile(Student student) {
+    public static void saveUserToFile(Person person) {
         try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
 
-            pw.println(student.toString() + ";");
-
-
-        } catch (Exception e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
-    public static void saveUserToFile(Faculty faculty) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
-
-            pw.println(faculty.toString() + ";");
-
-
-        } catch (Exception e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
-    public static void saveUserToFile(SupportEmployee support) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
-
-            pw.println(support.toString() + ";");
+            pw.println(person.toString() + ";");
 
 
         } catch (Exception e) {
@@ -201,14 +194,19 @@ public class Projectcs102 {
         }
     }
 
+    public static void getUserPassFromPersons(LinkedList<Person> Persons){
+        for (Person person : Persons) {
+            userPass.put(person.getUserName(),person.getPassword());
+        }
 
+
+    }
    public static boolean usernameExists(String username){
         return userPass.containsKey(username);
-   
    }
 
-    public static HashMap<String, String> loadHistory(){
-        HashMap<String, String> usernamePassword = new HashMap<>();
+    public static LinkedList<Person> getPersonsHistory(){
+        LinkedList<Person> Persons = new LinkedList<Person>();
         StringBuilder block = new StringBuilder();
         try (Scanner sc = new Scanner(new File("users.txt"))) {
             while (sc.hasNextLine()) {
@@ -218,9 +216,37 @@ public class Projectcs102 {
                 if (line.endsWith(";")){
                     String userData = block.toString();
                     userData = userData.substring(0,userData.length()-1).trim();
+                    userData = userData.replace(";","");
                     String[] fields = userData.split(",");
-                    usernamePassword.put(fields[2],fields[3]);
                     block.setLength(0);
+
+
+                    if (fields[0].equals("Student")){
+                        ArrayList<Award> awards = new ArrayList<Award>();
+                        String awardsBlock = fields[8];
+                        awardsBlock = awardsBlock.replace("Awards:\n", "").trim();
+                        String[] awardLines = awardsBlock.split("\n");
+                        if (awardLines.length > 1){
+                            for (String awardLine: awardLines){
+                                String[] awardFields = awardLine.split("-") ;
+                                awards.add(new Award(awardFields[0],awardFields[1],awardFields[2]));
+                            }
+                        }
+
+                        Persons.add(new Student(fields[1],fields[2],fields[3],fields[4],
+                        fields[5],fields[6],fields[7], awards, true));
+                        
+                    }
+                    else if(fields[0].equals("Faculty")){
+                        Persons.add(
+                            new Faculty(fields[1],fields[2],fields[3],fields[4],fields[5],fields[6],fields[7],fields[8],fields[9],true));
+                    }
+                    else if (fields[0].equals("Support Employee")){
+                        Persons.add(
+                            new SupportEmployee(fields[1],fields[2],fields[3],fields[4],fields[5],fields[6],fields[7],fields[8],true));
+                    }
+                    
+
                 }
             }
         }
@@ -228,32 +254,12 @@ public class Projectcs102 {
             System.out.println("Error reading users file: " + e.getMessage());
                
     }
-        return usernamePassword;
+        return Persons;
 
     }
     public static boolean signIn(String username, String password) {
-        password = Cipher.encryptSubstitution(password);
-        HashMap<String, String> usernamePassword = new HashMap<>();
-        StringBuilder block = new StringBuilder();
-        try (Scanner sc = new Scanner(new File("users.txt"))) {
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                if (line.isEmpty()) continue;
-                block.append(line).append("\n");
-                if (line.endsWith(";")){
-                    String userData = block.toString();
-                    userData = userData.substring(0,userData.length()-1).trim();
-                    String[] fields = userData.split(",");
-                    usernamePassword.put(fields[2],fields[3]);
-                    block.setLength(0);
-                }
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Error reading users file: " + e.getMessage());
-            return false; // WIP here should not sign in and continue loop in main
-        }
-        return usernamePassword.containsKey(username) && usernamePassword.get(username).equals(password);
+        
+        return userPass.containsKey(username) && userPass.get(username).equals(Cipher.encryptSubstitution(password));
 
    
     }

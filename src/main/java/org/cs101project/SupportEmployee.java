@@ -8,6 +8,11 @@ public class SupportEmployee extends Employee {
         super(fname, lname, username, password, birthDate, "Support Employee", department,officeNum);
         this.jobDescription = jobDesc;
     }
+
+    public SupportEmployee(String fname,String lname,String username,String password,String birthDate,String department, String officeNum, String jobDesc,boolean isEncrypted){
+        super(fname, lname, username, password, birthDate, "Support Employee", department,officeNum, isEncrypted);
+        this.jobDescription = jobDesc;
+    }
     @Override
     public String toString(){
         return super.toString() + "," + this.getJobDescription();

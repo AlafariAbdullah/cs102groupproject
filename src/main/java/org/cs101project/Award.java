@@ -13,7 +13,7 @@ public class Award {
     }
     @Override
     public String toString(){
-        return this.getAwardName() + ": " + this.getIssuer() + ", " + this.getDate() ;
+        return this.getAwardName() + "-" + this.getIssuer() + "-" + this.getDate() ;
     }
     public String getDate() {
         return date;

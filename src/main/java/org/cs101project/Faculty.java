@@ -10,6 +10,11 @@ public class Faculty extends Employee {
         this.rank = rank;
         this.specialisation = specialization;
     }
+    public Faculty(String fname,String lname,String username,String password,String birthDate,String department, String officeNum, String rank, String specialization, boolean isEncrypted){
+        super(fname, lname, username, password, birthDate, "Faculty", department,officeNum, true);
+        this.rank = rank;
+        this.specialisation = specialization;
+    }
     @Override
     public String toString(){
         return super.toString() + "," + this.getRank() +","+this.getSpecialisation();
