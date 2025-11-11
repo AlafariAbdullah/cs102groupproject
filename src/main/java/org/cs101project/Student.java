@@ -6,8 +6,8 @@ public class Student extends Person {
     private String major;
     private Award[] Awards;
 
-    public Student(String fname,String lname,String username,String password,String birthDate, String type,String status, String major,Award[] Awards){
-        super(fname, lname,username,password,birthDate, type);
+    public Student(String fname,String lname,String username,String password,String birthDate,String status, String major,Award[] Awards){
+        super(fname, lname,username,password,birthDate, "Student");
         this.status = status;
         this.major = major;
         this.Awards = Awards;

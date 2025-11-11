@@ -13,7 +13,9 @@ public class Projectcs102 {
         Scanner userInput = new Scanner(System.in);
        
         userPass = loadHistory();
-       
+        
+        Student me = new Student("Abdullah", "Alafari", "AAAAlafari", "12345", 
+        "16/11/2005", null, null, null)
        
         // Main menu
         String[] possibleInput = {"Sing in", "Sign up", "Exit", "1", "2", "3"};
@@ -89,7 +91,7 @@ public class Projectcs102 {
             username = userInput.nextLine();
            }while (usernameExists(username));
 
-           
+
             System.out.print("Date of birth: ");
             String Date = userInput.nextLine();
             System.out.print("Password: ");
@@ -113,7 +115,7 @@ public class Projectcs102 {
                     //  TO DOO AWARDS IS TO DO
 
                     System.out.println("Student account created for " + fname + " " + lname);
-                    saveUserToFile(new Student(fname,lname,username,password, Date, type, status, major, Awards));                    
+                    saveUserToFile(new Student(fname,lname,username,password, Date, status, major, Awards));                    
                     break;
                 }    
                 case "2": {
@@ -127,7 +129,7 @@ public class Projectcs102 {
                     System.out.print("Specialization: ");
                     String spec = userInput.nextLine();
                     System.out.println("Faculty account created for " + fname + " " + lname);
-                    saveUserToFile(new Faculty(fname, lname, username, password, Date, type, dept, office, rank, spec));
+                    saveUserToFile(new Faculty(fname, lname, username, password, Date, dept, office, rank, spec));
                     break;
    
                 }
@@ -140,7 +142,7 @@ public class Projectcs102 {
                     System.out.print("Job description: ");
                     String job = userInput.nextLine();
                     System.out.println("Support & Services account created for " + fname + " " + lname);
-                    saveUserToFile(new SupportEmployee(fname, lname, username, password, Date, type, dept, office, job));
+                    saveUserToFile(new SupportEmployee(fname, lname, username, password, Date, dept, office, job));
                     break;
                 }
             }

@@ -5,8 +5,8 @@ public class Faculty extends Employee {
     private String rank; // (lecturer, assistant professor, associate professor or professor)
     private String specialisation;
 
-    public Faculty(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum, String rank, String specialization){
-        super(fname, lname, username, password, birthDate, type, department,officeNum);
+    public Faculty(String fname,String lname,String username,String password,String birthDate,String department, String officeNum, String rank, String specialization){
+        super(fname, lname, username, password, birthDate, "Faculty", department,officeNum);
         this.rank = rank;
         this.specialisation = specialization;
     }

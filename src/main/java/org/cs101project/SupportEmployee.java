@@ -4,8 +4,8 @@ public class SupportEmployee extends Employee {
 
     private String jobDescription;
 
-    public SupportEmployee(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum, String jobDesc){
-        super(fname, lname, username, password, birthDate, type, department,officeNum);
+    public SupportEmployee(String fname,String lname,String username,String password,String birthDate,String department, String officeNum, String jobDesc){
+        super(fname, lname, username, password, birthDate, "Support Employee", department,officeNum);
         this.jobDescription = jobDesc;
     }
     @Override
