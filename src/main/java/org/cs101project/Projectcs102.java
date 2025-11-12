@@ -54,7 +54,7 @@ public class Projectcs102 {
                     System.out.print("Do you want to show your information? (yes, no): ");
                     String chooseDisplay = userInput.nextLine();
                     if (chooseDisplay.equalsIgnoreCase("yes")){
-                        System.out.print("Username: "+ currentUser.getUserName()+"FirstName: " + currentUser.getFirstName() + "\nSurname: " +
+                        System.out.print("Username: "+ currentUser.getUserName()+"\nFirstName: " + currentUser.getFirstName() + "\nSurname: " +
                         currentUser.getSurName() + "" );
                     }
 
