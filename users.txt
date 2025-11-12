@@ -2,10 +2,12 @@ Student,Ahmed,Balatif,ABal,45678,10/2/2024,Freshamn,CS,
 Awards:;
 Student,Moham,Ali,MA,4567,ds,Fresh,CS,
 Awards:
-CCNA-10/10-CISCO
-PSUHACKATHON-10/2025-Prince Sultan University
-CCNA2-10/2023-CISCO2;
+CCNA-10/11/2023-CISCO
+CCNA2-25/10/2023-CISCO2
+PSUHACKATHON-20/10//2025-Prince Sultan University;
 Faculty,Waleed,Sanie,WalSa,4567,10/10/1990,CS,123,Prof,Programming;
 Support Employee,Majd,Lass,MajLas,4567,10/10/1980,Clean,123,Worker;
 Student,Abdullah,Alafari,aAfari,45678,16/11/2005,Freshman,CS,
+Awards:;
+Student,Test1,Test1,Test,Defghijk4567,8/9/2006,Sophomore,MechE,
 Awards:;
