@@ -43,7 +43,7 @@ public class Student extends Person {
         this.getAwards().set(index,newAward);
     }
     public void addAward(Award newAward){
-        this.Awards.addLast(newAward);
+        this.Awards.add(newAward);
     }
     
     public void sortAwards(boolean nameOrDate, boolean ascOrDesc) {
