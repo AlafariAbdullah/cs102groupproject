@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
+
 public class Projectcs102 {
     private static HashMap<String,String> userPass = new HashMap<String,String>();
     private static LinkedList<Person> Persons;
@@ -45,29 +47,50 @@ public class Projectcs102 {
                 System.out.println("");
                 attempts ++;
                 success = signIn(loginUsername, loginPassword);
+                System.out.println("current user:"+ currentUser); //debug remove
                 if (!success) System.out.println("Access denied. "+ "attempts: " + (attempts));
                 } while (success == false && attempts < 3);
 
                 if (success && attempts<3) {
                     // Program to Display/Edit information
+                    //Abdelrahman: The requirements state that giving 4 options to the user after signing in, I changed
+                    //the code here to make it closer to the document.
                     System.out.println("Access granted!\nWelcome '"+currentUser+"'");
-                    System.out.print("Do you want to show your information? (yes, no): ");
-                    String chooseDisplay = userInput.nextLine();
-                    if (chooseDisplay.equalsIgnoreCase("yes")){
-                        System.out.print("Username: "+ currentUser.getUserName()+"FirstName: " + currentUser.getFirstName() + "\nSurname: " +
-                        currentUser.getSurName() + "" );
+                    System.out.print("Do you want to: (1) Show your information? (2)Change your name?(3)Change your password?(4) Exit");
+                    choice = userInput.nextLine();
+                    if (choice.equals("1")){ //Showing information
+                        if (currentUser instanceof Student) {
+                            Student currentStudent = (Student)(currentUser);
+                            System.out.println("Do you want to show your awards sorted? (Y/N)");
+                            choice = userInput.nextLine();
+                            if (choice.equalsIgnoreCase("y")) {
+                                System.out.println("Do you want to sort the awards based on name or date and ascending or descending?"
+                                        + "(1) name ascending (2) name descending (3) date ascending (4) date descending");
+                                choice = userInput.nextLine();
+                                System.out.println(currentStudent.getAwards().get(0).getDate());
+                                switch(choice) {
+                                    case "1": Collections.sort(currentStudent.getAwards()); break; //first choice is name ascending so no comparator
+                                    case "2": Collections.sort(currentStudent.getAwards()); Collections.reverse(currentStudent.getAwards()); break; //sort ascending then reverse in one line 
+                                    //Case 3 and 4 that work with dates are broken due to formatting inconsistency. Sometimes when I use .getDate I get the issuer name instead and I'm not sure why
+                                    case "3": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); break;
+                                    //case "4": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); Collections.reverse(currentStudent.getAwards()); break;
+                                }
+                            }
+                            //if choice is "Y" we sorted else we ignored the if condition and now its time to print student information
+                            System.out.println(currentStudent);
+                        }
                     }
-
-
-
-
-
-
-
-
-
-
-
+                    else if(choice.equals("2")) { //Stub for changing name
+                        
+                    }
+                    
+                    else if(choice.equals("3")) { //Stub for changing password
+                        
+                    }
+                    else if(choice.equals("4")) { //Stub for exit 
+                        
+                    }
+                    
                 } else {
                     System.out.println("Access denied and attempts past 3.");
                 }

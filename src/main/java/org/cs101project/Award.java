@@ -1,6 +1,7 @@
 package org.cs101project;
 
-public class Award {
+
+public class Award implements Comparable<Award>{
 
     private String date;
     private String awardName;
@@ -37,6 +38,11 @@ public class Award {
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
+    }
+
+    @Override
+    public int compareTo(Award o) {
+        return this.getAwardName().compareToIgnoreCase(o.getAwardName());
     }
 
 }

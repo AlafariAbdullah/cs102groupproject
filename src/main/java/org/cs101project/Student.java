@@ -45,6 +45,10 @@ public class Student extends Person {
     public void addAward(Award newAward){
         this.Awards.addLast(newAward);
     }
+    
+    public void sortAwards(boolean nameOrDate, boolean ascOrDesc) {
+        
+    }
 
     public String getStatus() {
         return status;
