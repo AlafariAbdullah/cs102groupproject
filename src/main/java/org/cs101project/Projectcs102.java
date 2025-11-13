@@ -71,20 +71,39 @@ public class Projectcs102 {
                                 switch(choice) {
                                     case "1": Collections.sort(currentStudent.getAwards()); break; //first choice is name ascending so no comparator
                                     case "2": Collections.sort(currentStudent.getAwards()); Collections.reverse(currentStudent.getAwards()); break; //sort ascending then reverse in one line 
-                                    //Case 3 and 4 that work with dates are broken due to formatting inconsistency. Sometimes when I use .getDate I get the issuer name instead and I'm not sure why
                                     case "3": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); break;
-                                    //case "4": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); Collections.reverse(currentStudent.getAwards()); break;
+                                    case "4": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); Collections.reverse(currentStudent.getAwards()); break;
                                 }
                             }
                             //if choice is "Y" we sorted else we ignored the if condition and now its time to print student information
                             System.out.println(currentStudent);
                         }
+                        else {
+                            System.out.println(currentUser);
+                        }
                     }
-                    else if(choice.equals("2")) { //Stub for changing name
-                        
+                    else if(choice.equals("2")) { 
+                        //I checked the requirements and it requires changing first and last name but doesn't care about username
+                        System.out.println("Enter your first name");
+                        String newFirstName = userInput.nextLine();
+                        currentUser.setFirstName(newFirstName);
+                        System.out.println("Enter your surname");
+                        String newLastName = userInput.nextLine();
+                        currentUser.setSurName(newLastName);
                     }
                     
-                    else if(choice.equals("3")) { //Stub for changing password
+                    else if(choice.equals("3")) { 
+                        //newPassword and confirmPassword have to be equal
+                        System.out.println("Enter your new password");
+                        String newPassword = userInput.nextLine();
+                        System.out.println("Confirm your password");
+                        String confirmPassword = userInput.nextLine();
+                        if (newPassword.equals(confirmPassword)) {
+                            currentUser.setPassword(newPassword);
+                        }
+                        else{
+                            System.out.println("Error! Passwords don't match!");
+                        }
                         
                     }
                     else if(choice.equals("4")) { //Stub for exit 
@@ -128,7 +147,17 @@ public class Projectcs102 {
             }while (usernameExists(username));
 
                 System.out.print("Date of birth: ");
-                String Date = userInput.nextLine();
+                boolean dateAccepted = false;
+                String dateToTest = null;
+                while(!dateAccepted) {
+                    dateToTest = userInput.nextLine();
+                    if (DateValidator.isValidDate(dateToTest)) {
+                        dateAccepted = true;
+                    } else {
+                        System.out.println("Invalid format or impossible date.");
+                    } 
+                }
+                String Date = dateToTest;
                 System.out.print("Password: ");
                 String password = userInput.nextLine();
 
@@ -225,7 +254,7 @@ public class Projectcs102 {
             } }catch (Exception e) {
             System.out.println("Error writing to file: " + e.getMessage());
                 }
-            System.out.println("Saved");
+            System.out.println("Saved information to file (Debug: maybe we shouldn't show this in the final program?");
     
         }
 
