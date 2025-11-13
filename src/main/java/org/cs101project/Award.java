@@ -14,7 +14,7 @@ public class Award implements Comparable<Award>{
     }
     @Override
     public String toString(){
-        return this.getAwardName() + "-" + this.getIssuer() + "-" + this.getDate() ;
+        return this.getAwardName() + "-" + this.getDate() + "-" + this.getIssuer() ;
     }
     public String getDate() {
         return date;
