@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Projectcs102 {
-    private static HashMap<String,String> userPass = new HashMap<String,String>();
+
+    private static HashMap<String, String> userPass = new HashMap<String, String>();
     private static LinkedList<Person> Persons;
     private static Person currentUser;
+
     public static void main(String[] args) {
         // System.out.println("Hi");    
         Persons = getPersonsHistory();
         getUserPassFromPersons(Persons);
-        try{
+        try {
             Scanner userInput = new Scanner(System.in);
-
-            
 
             System.out.println(userPass);
 
@@ -37,52 +37,67 @@ public class Projectcs102 {
                 boolean success = false;
                 int attempts = 0;
                 do {
-                System.out.println("");
-                System.out.println("-------(Sign in)-------");
-                System.out.println("");
-                System.out.print("Enter username: ");
-                String loginUsername = userInput.nextLine();
-                System.out.print("Enter password: ");
-                String loginPassword = userInput.nextLine();
-                System.out.println("");
-                attempts ++;
-                success = signIn(loginUsername, loginPassword);
-                System.out.println("current user:"+ currentUser); //debug remove
-                if (!success) System.out.println("Access denied. "+ "attempts: " + (attempts));
+                    System.out.println("");
+                    System.out.println("-------(Sign in)-------");
+                    System.out.println("");
+                    System.out.print("Enter username: ");
+                    String loginUsername = userInput.nextLine();
+                    System.out.print("Enter password: ");
+                    String loginPassword = userInput.nextLine();
+                    System.out.println("");
+                    attempts++;
+                    success = signIn(loginUsername, loginPassword);
+                    System.out.println("current user:" + currentUser); //debug remove
+                    if (!success) {
+                        System.out.println("Access denied. " + "attempts: " + (attempts));
+                    }
                 } while (success == false && attempts < 3);
 
-                if (success && attempts<3) {
+                if (success && attempts < 3) {
                     // Program to Display/Edit information
                     //Abdelrahman: The requirements state that giving 4 options to the user after signing in, I changed
                     //the code here to make it closer to the document.
-                    System.out.println("Access granted!\nWelcome '"+currentUser+"'");
-                    System.out.print("Do you want to: (1) Show your information? (2)Change your name?(3)Change your password?(4) Exit");
+                    System.out.println("Access granted!\nWelcome '" + currentUser + "'");
+                    System.out.println("Do you want to:\n(1)Show your information?\n(2)Change your name?\n(3)Change your password?\n(4)Exit");
+                    System.out.print("Enter your choice: ");
+
                     choice = userInput.nextLine();
-                    if (choice.equals("1")){ //Showing information
+                    if (choice.equals("1")) { //Showing information
                         if (currentUser instanceof Student) {
-                            Student currentStudent = (Student)(currentUser);
+                            Student currentStudent = (Student) (currentUser);
                             System.out.println("Do you want to show your awards sorted? (Y/N)");
                             choice = userInput.nextLine();
                             if (choice.equalsIgnoreCase("y")) {
+                                System.out.println("");
                                 System.out.println("Do you want to sort the awards based on name or date and ascending or descending?"
-                                        + "(1) name ascending (2) name descending (3) date ascending (4) date descending");
+                                        + "\n(1) name ascending\n(2) name descending\n(3) date ascending\n(4) date descending");
+                                System.out.print("Enter your choice: ");
+
                                 choice = userInput.nextLine();
                                 System.out.println(currentStudent.getAwards().get(0).getDate());
-                                switch(choice) {
-                                    case "1": Collections.sort(currentStudent.getAwards()); break; //first choice is name ascending so no comparator
-                                    case "2": Collections.sort(currentStudent.getAwards()); Collections.reverse(currentStudent.getAwards()); break; //sort ascending then reverse in one line 
-                                    case "3": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); break;
-                                    case "4": Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator()); Collections.reverse(currentStudent.getAwards()); break;
+                                switch (choice) {
+                                    case "1":
+                                        Collections.sort(currentStudent.getAwards());
+                                        break; //first choice is name ascending so no comparator
+                                    case "2":
+                                        Collections.sort(currentStudent.getAwards());
+                                        Collections.reverse(currentStudent.getAwards());
+                                        break; //sort ascending then reverse in one line 
+                                    case "3":
+                                        Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator());
+                                        break;
+                                    case "4":
+                                        Collections.sort(currentStudent.getAwards(), new AwardsByDateComparator());
+                                        Collections.reverse(currentStudent.getAwards());
+                                        break;
                                 }
                             }
                             //if choice is "Y" we sorted else we ignored the if condition and now its time to print student information
                             System.out.println(currentStudent);
-                        }
-                        else {
+                        } else {
                             System.out.println(currentUser);
                         }
-                    }
-                    else if(choice.equals("2")) { 
+                    } else if (choice.equals("2")) {
                         //I checked the requirements and it requires changing first and last name but doesn't care about username
                         System.out.println("Enter your first name");
                         String newFirstName = userInput.nextLine();
@@ -90,9 +105,7 @@ public class Projectcs102 {
                         System.out.println("Enter your surname");
                         String newLastName = userInput.nextLine();
                         currentUser.setSurName(newLastName);
-                    }
-                    
-                    else if(choice.equals("3")) { 
+                    } else if (choice.equals("3")) {
                         //newPassword and confirmPassword have to be equal
                         System.out.println("Enter your new password");
                         String newPassword = userInput.nextLine();
@@ -100,16 +113,14 @@ public class Projectcs102 {
                         String confirmPassword = userInput.nextLine();
                         if (newPassword.equals(confirmPassword)) {
                             currentUser.setPassword(newPassword);
-                        }
-                        else{
+                        } else {
                             System.out.println("Error! Passwords don't match!");
                         }
-                        
+
+                    } else if (choice.equals("4")) { //Stub for exit 
+
                     }
-                    else if(choice.equals("4")) { //Stub for exit 
-                        
-                    }
-                    
+
                 } else {
                     System.out.println("Access denied and attempts past 3.");
                 }
@@ -118,51 +129,51 @@ public class Projectcs102 {
                 System.out.println("-------(Sign up)-------");
 
                 String type = "";
-                do{
+                do {
                     if (!type.equals("")) //So it runs the second time only
+                    {
                         System.out.println("Invalid Input");
+                    }
                     System.out.println("\n Type (1) If you are a student.\n Type (2) If you are a faculty member.\n Type (3) If you are a support employee.\n Type (4) to exit");
                     System.out.print("Enter your choice: ");
                     type = userInput.nextLine();
-                    if (type.equals("4")){
-                    overWriteFile(Persons);
-                    System.exit(1);
+                    if (type.equals("4")) {
+                        overWriteFile(Persons);
+                        System.exit(1);
                     }
-                }
-                while (!type.equals("1") && !type.equals("2") && !type.equals("3"));
-        
+                } while (!type.equals("1") && !type.equals("2") && !type.equals("3"));
 
                 System.out.println("");
                 System.out.print("First name: ");
                 String fname = userInput.nextLine();
                 System.out.print("Last name: ");
                 String lname = userInput.nextLine();
-            
-            String username = "";
-            do{
-                if (usernameExists(username))
-                    System.out.println("Username already exists! Try again!");
-                System.out.print("Username: ");
-                username = userInput.nextLine();
-            }while (usernameExists(username));
+
+                String username = "";
+                do {
+                    if (usernameExists(username)) {
+                        System.out.println("Username already exists! Try again!");
+                    }
+                    System.out.print("Username: ");
+                    username = userInput.nextLine();
+                } while (usernameExists(username));
 
                 System.out.print("Date of birth: ");
                 boolean dateAccepted = false;
                 String dateToTest = null;
-                while(!dateAccepted) {
+                while (!dateAccepted) {
                     dateToTest = userInput.nextLine();
                     if (DateValidator.isValidDate(dateToTest)) {
                         dateAccepted = true;
                     } else {
                         System.out.println("Invalid format or impossible date.");
-                    } 
+                    }
                 }
                 String Date = dateToTest;
                 System.out.print("Password: ");
                 String password = userInput.nextLine();
 
-
-                switch (type){
+                switch (type) {
                     case "1": {
                         type = "Student";
                         System.out.print("Status (Freshman, Sophomore, etc): ");
@@ -173,28 +184,28 @@ public class Projectcs102 {
                         // Sample Data!!! Awards logic should be done
                         ArrayList<Award> Awards = new ArrayList<Award>();
                         System.out.println("Awards: Do you have any Awards?");
-                        if (userInput.nextLine().equalsIgnoreCase("yes")){
+                        if (userInput.nextLine().equalsIgnoreCase("yes")) {
                             System.out.println("How many Awards do you have? ");
                             int awardsNum = userInput.nextInt();
                             userInput.nextLine(); //To remove buffer \n
                             for (int i = 0; i < awardsNum; i++) {
-                                System.out.println("Award #"+(i+1));
+                                System.out.println("Award #" + (i + 1));
                                 System.out.print("Name: ");
                                 String name = userInput.nextLine();
                                 System.out.print("Date: ");
                                 String date = userInput.nextLine();
                                 System.out.print("Issuer: ");
                                 String issuer = userInput.nextLine();
-                                Awards.add(new Award(name, date,issuer));
+                                Awards.add(new Award(name, date, issuer));
                             }
+                        } else {
                         }
-                        else{}
                         //  TO DOO AWARDS IS TO DO
 
                         System.out.println("Student account created for " + fname + " " + lname);
-                        saveUserToFile(new Student(fname,lname,username,password, Date, status, major, Awards));                    
+                        saveUserToFile(new Student(fname, lname, username, password, Date, status, major, Awards));
                         break;
-                    }    
+                    }
                     case "2": {
                         type = "Faculty";
                         System.out.print("Department: ");
@@ -208,10 +219,10 @@ public class Projectcs102 {
                         System.out.println("Faculty account created for " + fname + " " + lname);
                         saveUserToFile(new Faculty(fname, lname, username, password, Date, dept, office, rank, spec));
                         break;
-    
+
                     }
                     case "3": {
-                        type = "SupportEmployee" ;
+                        type = "SupportEmployee";
                         System.out.print("Department: ");
                         String dept = userInput.nextLine();
                         System.out.print("Office number: ");
@@ -223,122 +234,114 @@ public class Projectcs102 {
                         break;
                     }
                 }
-            
-            }
-                else if (choice.equalsIgnoreCase("Exit") || choice.equalsIgnoreCase("3")) {
-                    overWriteFile(Persons);
-                    System.exit(1);
+
+            } else if (choice.equalsIgnoreCase("Exit") || choice.equalsIgnoreCase("3")) {
+                overWriteFile(Persons);
+                System.exit(1);
 
                 System.out.println("(Sign up is complete)");
-                }
-            } finally{
-                overWriteFile(Persons);
             }
+        } finally {
+            overWriteFile(Persons);
         }
+    }
 
-    
-        public static boolean includes(String[] arr, String str) {
-            for (int i = 0; i < arr.length; i++) {
-                if (arr[i].equalsIgnoreCase(str)) {
-                    return true;
-                }
+    public static boolean includes(String[] arr, String str) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equalsIgnoreCase(str)) {
+                return true;
             }
-            return false;
         }
-        
-        public static void overWriteFile(LinkedList<Person> list){
-            // System.out.println(list);
-            try (PrintWriter pw = new PrintWriter(new File("users.txt"))) {
-            for (Person p : list){
-                    pw.println(p.toString() + ";");
-            } }catch (Exception e) {
+        return false;
+    }
+
+    public static void overWriteFile(LinkedList<Person> list) {
+        // System.out.println(list);
+        try (PrintWriter pw = new PrintWriter(new File("users.txt"))) {
+            for (Person p : list) {
+                pw.println(p.toString() + ";");
+            }
+        } catch (Exception e) {
             System.out.println("Error writing to file: " + e.getMessage());
-                }
-            System.out.println("Saved information to file (Debug: maybe we shouldn't show this in the final program?");
-    
         }
+        System.out.println("Saved information to file (Debug: maybe we shouldn't show this in the final program?");
 
-
-
-
+    }
 
     public static void saveUserToFile(Person person) {
         Persons.add(person);
     }
 
-    public static void getUserPassFromPersons(LinkedList<Person> Persons){
+    public static void getUserPassFromPersons(LinkedList<Person> Persons) {
         for (Person person : Persons) {
-            userPass.put(person.getUserName(),person.getPassword());
+            userPass.put(person.getUserName(), person.getPassword());
         }
 
-
     }
-   public static boolean usernameExists(String username){
-        return userPass.containsKey(username);
-   }
 
-    public static LinkedList<Person> getPersonsHistory(){
+    public static boolean usernameExists(String username) {
+        return userPass.containsKey(username);
+    }
+
+    public static LinkedList<Person> getPersonsHistory() {
         LinkedList<Person> Persons = new LinkedList<Person>();
         StringBuilder block = new StringBuilder();
         try (Scanner sc = new Scanner(new File("users.txt"))) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty()) {
+                    continue;
+                }
                 block.append(line).append("\n");
-                if (line.endsWith(";")){
+                if (line.endsWith(";")) {
                     String userData = block.toString();
-                    userData = userData.substring(0,userData.length()-1).trim();
-                    userData = userData.replace(";","");
+                    userData = userData.substring(0, userData.length() - 1).trim();
+                    userData = userData.replace(";", "");
                     String[] fields = userData.split(",");
                     block.setLength(0);
 
-
-                    if (fields[0].equals("Student")){
+                    if (fields[0].equals("Student")) {
                         ArrayList<Award> awards = new ArrayList<Award>();
                         String awardsBlock = fields[8];
                         awardsBlock = awardsBlock.replace("Awards:\n", "").trim();
                         String[] awardLines = awardsBlock.split("\n");
-                        if (awardLines.length > 1){
-                            for (String awardLine: awardLines){
-                                String[] awardFields = awardLine.split("-") ;
-                                awards.add(new Award(awardFields[0],awardFields[1],awardFields[2]));
+                        if (awardLines.length > 1) {
+                            for (String awardLine : awardLines) {
+                                String[] awardFields = awardLine.split("-");
+                                awards.add(new Award(awardFields[0], awardFields[1], awardFields[2]));
                             }
                         }
 
-                        Persons.add(new Student(fields[1],fields[2],fields[3],fields[4],
-                        fields[5],fields[6],fields[7], awards, true));
-                        
-                    }
-                    else if(fields[0].equals("Faculty")){
+                        Persons.add(new Student(fields[1], fields[2], fields[3], fields[4],
+                                fields[5], fields[6], fields[7], awards, true));
+
+                    } else if (fields[0].equals("Faculty")) {
                         Persons.add(
-                            new Faculty(fields[1],fields[2],fields[3],fields[4],fields[5],fields[6],fields[7],fields[8],fields[9],true));
-                    }
-                    else if (fields[0].equals("Support Employee")){
+                                new Faculty(fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], fields[7], fields[8], fields[9], true));
+                    } else if (fields[0].equals("Support Employee")) {
                         Persons.add(
-                            new SupportEmployee(fields[1],fields[2],fields[3],fields[4],fields[5],fields[6],fields[7],fields[8],true));
+                                new SupportEmployee(fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], fields[7], fields[8], true));
                     }
-                    
 
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error reading users file: " + e.getMessage());
-               
-    }
+
+        }
         return Persons;
 
     }
+
     public static boolean signIn(String username, String password) {
         boolean success = userPass.containsKey(username) && userPass.get(username).equals(Cipher.encryptSubstitution(password));
         for (Person p : Persons) {
-            if(p.getUserName().equals(username))
+            if (p.getUserName().equals(username)) {
                 currentUser = p;
+            }
         }
-
 
         return success;
     }
-
 
 }
