@@ -170,8 +170,21 @@ public class Projectcs102 {
                     }
                 }
                 String Date = dateToTest;
+
                 System.out.print("Password: ");
-                String password = userInput.nextLine();
+                boolean passwordAccepted = false;
+                String password = null;
+
+                while (!passwordAccepted) {
+                    password = userInput.nextLine();
+
+                    if (isValidPassword(password)) {
+                        passwordAccepted = true;
+                    } else {
+                        System.out.println("Invalid password!\nIt must be at least 6 characters and contain at least one capital letter.");
+                        System.out.print("Password: ");
+                    }
+                }
 
                 switch (type) {
                     case "1": {
@@ -342,6 +355,28 @@ public class Projectcs102 {
         }
 
         return success;
+    }
+
+    public static boolean isValidPassword(String password) {
+        if (password == null) {
+            return false;
+        }
+
+        // Must be at least 6 characters
+        if (password.length() < 6) {
+            return false;
+        }
+
+        // Must contain at least one capital letter
+        boolean hasCapital = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasCapital = true;
+            }
+        }
+
+        return hasCapital;
     }
 
 }
