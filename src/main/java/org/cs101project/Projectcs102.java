@@ -174,7 +174,7 @@ public class Projectcs102 {
 
                     } else if (choice.equals("4")) { //Stub for exit
                         overWriteFile(Persons);
-                        System.exit(1); 
+                        System.exit(0); 
                         
                     }
                 }
@@ -197,7 +197,7 @@ public class Projectcs102 {
                     type = userInput.nextLine();
                     if (type.equals("4")) {
                         overWriteFile(Persons);
-                        System.exit(1);
+                        System.exit(0);
                     }
                 } while (!type.equals("1") && !type.equals("2") && !type.equals("3"));
 
@@ -446,7 +446,7 @@ public class Projectcs102 {
 
             } else if (choice.equalsIgnoreCase("Exit") || choice.equalsIgnoreCase("3")) {
                 overWriteFile(Persons);
-                System.exit(1);
+                System.exit(0);
 
                 System.out.println("(Sign up is complete)");
             }
