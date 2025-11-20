@@ -26,4 +26,10 @@ public class SupportEmployee extends Employee {
     public void setJobDescription(String jobDesc) {
         this.jobDescription = jobDesc;
     }
+
+    @Override
+    public String toDisplayString() {
+        return super.toDisplayString()
+            + "\nJob Description: " + this.getJobDescription();
+    }
 }

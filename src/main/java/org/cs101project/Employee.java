@@ -21,6 +21,12 @@ public class Employee extends Person {
     public String toString() {
         return super.toString() + "," + this.getDepartment() + "," + this.getOfficeNumber();
     }
+    @Override
+    public String toDisplayString() {
+        return super.toDisplayString()
+            + "\nDepartment: " + this.getDepartment()
+            + "\nOffice Number: " + this.getOfficeNumber();
+    }
 
     public String getDepartment() {
         return department;

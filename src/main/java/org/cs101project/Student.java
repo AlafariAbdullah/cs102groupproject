@@ -10,7 +10,7 @@ public class Student extends Person {
 
     public Student(String fname, String lname, String username, String password, String birthDate, String status, String major, ArrayList<Award> Awards) {
         super(fname, lname, username, password, birthDate, "Student");
-        this.status = status;
+        this.setStatus(status);
         this.major = major;
         if (Awards != null) {
             this.Awards = Awards;
@@ -22,7 +22,7 @@ public class Student extends Person {
     // to handle importing from file without ruining the password that's already encrypted
     public Student(String fname, String lname, String username, String password, String birthDate, String status, String major, ArrayList<Award> Awards, boolean isEncrypted) {
         super(fname, lname, username, password, birthDate, "Student", true);
-        this.status = status;
+        this.setStatus(status);
         this.major = major;
         if (Awards != null) {
             this.Awards = Awards;
@@ -62,10 +62,39 @@ public class Student extends Person {
     }
 
     public void setStatus(String status) {
-        this.status = status;
-    }
+        if (status == null) {
+            throw new IllegalArgumentException("Status cannot be null");
+        }
 
-    public String getMajor() {
+        String trimmed = status.trim();
+
+        if (!(trimmed.equalsIgnoreCase("Freshman") ||
+              trimmed.equalsIgnoreCase("Sophomore") ||
+              trimmed.equalsIgnoreCase("Junior") ||
+              trimmed.equalsIgnoreCase("Senior"))) {
+
+            throw new IllegalArgumentException("Status must be one of: Freshman, Sophomore, Junior, Senior");
+        }
+
+        this.status = trimmed;
+    }
+    @Override
+    public String toDisplayString() {
+        String out = super.toDisplayString()
+            + "\nStatus: " + this.getStatus()
+            + "\nMajor: " + this.getMajor()
+            + "\nAwards:";
+    
+        if (Awards == null || Awards.isEmpty()) {
+            out += "\n  No awards.";
+        } else {
+            for (Award a : Awards) {
+                out += "\n  - " + a.getAwardName() + " (" + a.getDate() + ") — " + a.getIssuer();
+            }
+        }
+    
+        return out;
+    }    public String getMajor() {
         return major;
     }
 

@@ -1,13 +1,14 @@
-Student,Ahmed,Balatif,ABal,45678,10/2/2024,Freshamn,CS,
-Awards:;
-Student,Moham,Ali,MA,4567,ds,Fresh,CS,
+Student,Ahmed,Balatif,ABal,Gkl9$n,10/02/2004,Freshman,CS,
+Awards:
+DeanList-12/05/2023-PSU
+HackathonWin-20/10/2023-PSU;
+Student,Mohammed,Ali,MA,Jno2@s,15/08/2003,Sophomore,CS,
 Awards:
 CCNA-10/11/2023-CISCO
-CCNA2-25/10/2023-CISCO2
-PSUHACKATHON-20/10//2025-Prince Sultan University;
-Faculty,Waleed,Sanie,WalSa,4567,10/10/1990,CS,123,Prof,Programming;
-Support Employee,Majd,Lass,MajLas,4567,10/10/1980,Clean,123,Worker;
-Student,Abdullah,Alafari,aAfari,45678,16/11/2005,Freshman,CS,
+ICPCRegional-05/09/2024-ACM;
+Faculty,Waleed,Sanie,WalSa,Ipq4#v,10/10/1980,CS,123,Professor,Programming;
+Support Employee,Majd,Lass,MajLas,Ltu8!w,10/10/1985,Cleaning,45,Maintenance;
+Student,Abdullah,Alafari,aAfari,Nwx3&O,16/11/2005,Freshman,CS,
 Awards:;
-Student,Test1,Test1,Test,Defghijk4567,8/9/2006,Sophomore,MechE,
+Student,Test1,Test1,Test,Rb{7*T,08/09/2006,Sophomore,MechE,
 Awards:;
