@@ -12,3 +12,4 @@ Student,Abdullah,Alafari,aAfari,Nwx3&O,16/11/2005,Freshman,CS,
 Awards:;
 Student,Test1,Test1,Test,Rb{7*T,08/09/2006,Sophomore,MechE,
 Awards:;
+Faculty,Ahmed,Mohammed,AhmedMoh,DKCpk456,16/11/2004,CS,123,Professor,CS;

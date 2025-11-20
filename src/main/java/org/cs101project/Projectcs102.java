@@ -22,7 +22,6 @@ public class Projectcs102 {
         try {
             Scanner userInput = new Scanner(System.in);
 
-            System.out.println(userPass);
 
             // Main menu
             String[] possibleInput = {"Sign in", "Sign up", "Exit", "1", "2", "3"};
@@ -152,6 +151,7 @@ public class Projectcs102 {
                                 System.out.println("Invalid password!");
                                 System.out.println("It must be at least 6 characters and contain at least one capital letter, one small letter, one digit, and one special character.");
                                 System.out.println("");
+                                continue; // go back to top of loop
                             }
 
                             System.out.println("Confirm your password: ");
@@ -160,7 +160,7 @@ public class Projectcs102 {
                             if (!newPassword.equals(confirmPassword)) {
                                 System.out.println("Error! Passwords don't match! Please try again.");
                                 System.out.println("");
-                                
+                                continue; // go back to top of loop
                             }
 
                             // If we reach here, password is valid and confirmed
@@ -173,6 +173,7 @@ public class Projectcs102 {
                         }
 
                     } else if (choice.equals("4")) { //Stub for exit
+                        overWriteFile(Persons);
                         System.exit(1); 
                         
                     }
@@ -224,20 +225,25 @@ public class Projectcs102 {
                 }   
                 String username = "";
                 boolean validUsername = false;
-                while(!validUsername){
-                    try{
+                while (!validUsername) {
+                    try {
                         System.out.print("Username: ");
-                        username = userInput.nextLine();
-
+                        username = userInput.nextLine().trim();
+                        if (!isValidUsernameFormat(username)) {
+                            throw new IllegalArgumentException(
+                                "Username must start with a letter and contain only letters and digits."
+                            );
+                        }
                         if (usernameExists(username)) {
                             throw new IllegalArgumentException("Username already exists! Try again!");
                         }
+                
                         validUsername = true;
-                    } catch(IllegalArgumentException e){
+                
+                    } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
-                 }
-                System.out.print("Date of birth: ");
+                }                System.out.print("Date of birth (dd/MM/yyyy): : ");
                 boolean dateAccepted = false;
                 String dateToTest = null;
                 while (!dateAccepted) {
@@ -247,7 +253,7 @@ public class Projectcs102 {
                     } else {
                         System.out.println("Invalid format or impossible date.");
                         System.out.println("");
-                        System.out.print("Date of birth: ");
+                        System.out.print("Date of birth (dd/MM/yyyy): : ");
 
                     }
                 }
@@ -263,7 +269,7 @@ public class Projectcs102 {
                     if (isValidPassword(password)) {
                         passwordAccepted = true;
                     } else {
-                        System.out.println("Invalid password!\nIt must be at least 6 characters and contain at least one capital letter.");
+                        System.out.println("Invalid password!\nIt must be at least 6 characters and contain at least: one capital letter, one small letter, one digit and one special character.");
                         System.out.println("");
                         System.out.print("Password: ");
                     }
@@ -328,8 +334,19 @@ public class Projectcs102 {
                                 System.out.println("Award #" + (i + 1));
                                 System.out.print("Name: ");
                                 String name = userInput.nextLine();
-                                System.out.print("Date: ");
-                                String date = userInput.nextLine();
+
+                                String date = null;
+                                boolean validAwardDate = false;
+                                while (!validAwardDate) {
+                                    System.out.print("Date (dd/MM/yyyy): ");
+                                    date = userInput.nextLine();
+
+                                    if (DateValidator.isValidDate(date)) {
+                                        validAwardDate = true;
+                                    } else {
+                                        System.out.println("Invalid award date! Please use dd/MM/yyyy.");
+                                    }
+                                }
                                 System.out.print("Issuer: ");
                                 String issuer = userInput.nextLine();
                                 Awards.add(new Award(name, date, issuer));
@@ -339,7 +356,7 @@ public class Projectcs102 {
                         //  TO DOO AWARDS IS TO DO
 
                         System.out.println("Student account created for " + fname + " " + lname);
-                        saveUserToFile(new Student(fname, lname, username, password, Date, status, major, Awards));
+                        saveUser(new Student(fname, lname, username, password, Date, status, major, Awards));
                         break;
                     }
                     case "2": {
@@ -364,7 +381,7 @@ public class Projectcs102 {
                         boolean validRank = false;
                         while (!validRank) {
                             try {
-                                System.out.print("Rank: ");
+                                System.out.print("Rank (Lecturer, Assistant Professor, Associate Professor, Professor): ");
                                 rank = userInput.nextLine();
                                 String trimmed = rank.trim();
 
@@ -400,7 +417,7 @@ public class Projectcs102 {
                         }
                         
                         System.out.println("Faculty account created for " + fname + " " + lname);
-                        saveUserToFile(new Faculty(fname, lname, username, password, Date, dept, office, rank, spec));
+                        saveUser(new Faculty(fname, lname, username, password, Date, dept, office, rank, spec));
                         break;
 
                     }
@@ -422,7 +439,7 @@ public class Projectcs102 {
                         System.out.print("Job description: ");
                         String job = userInput.nextLine();
                         System.out.println("Support & Services account created for " + fname + " " + lname);
-                        saveUserToFile(new SupportEmployee(fname, lname, username, password, Date, dept, office, job));
+                        saveUser(new SupportEmployee(fname, lname, username, password, Date, dept, office, job));
                         break;
                     }
                 }
@@ -459,7 +476,7 @@ public class Projectcs102 {
 
     }
 
-    public static void saveUserToFile(Person person) {
+    public static void saveUser(Person person) {
         Persons.add(person);
     }
 
@@ -483,6 +500,21 @@ public class Projectcs102 {
             return true;
         }
 
+    }
+    public static boolean isValidUsernameFormat(String username) {
+        if (username == null) return false;
+        username = username.trim();
+        if (username.isEmpty()) return false;
+    
+        // must start with a letter
+        if (!Character.isLetter(username.charAt(0))) return false;
+    
+        // remaining must be alphanumeric
+        for (char c : username.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) return false;
+        }
+    
+        return true;
     }
 
     public static LinkedList<Person> getPersonsHistory() {

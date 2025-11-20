@@ -8,7 +8,7 @@ public class Award implements Comparable<Award> {
 
     public Award(String awardName, String date, String issuer) {
         this.awardName = awardName;
-        this.date = date;
+        setDate(date);
         this.issuer = issuer;
     }
 
@@ -22,6 +22,9 @@ public class Award implements Comparable<Award> {
     }
 
     public void setDate(String date) {
+        if (!DateValidator.isValidDate(date)) {
+            throw new IllegalArgumentException("Invalid award date format. Must be dd/MM/yyyy.");
+        }
         this.date = date;
     }
 
