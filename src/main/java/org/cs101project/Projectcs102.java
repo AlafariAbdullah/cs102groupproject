@@ -47,7 +47,7 @@ public class Projectcs102 {
                     System.out.println("");
                     attempts++;
                     success = signIn(loginUsername, loginPassword);
-                    System.out.println("current user:" + currentUser); //debug remove
+                    System.out.println("Current user: " + currentUser + " "); //debug remove
                     if (!success) {
                         System.out.println("Access denied. " + "attempts: " + (attempts));
                     }
@@ -57,7 +57,7 @@ public class Projectcs102 {
                     // Program to Display/Edit information
                     //Abdelrahman: The requirements state that giving 4 options to the user after signing in, I changed
                     //the code here to make it closer to the document.
-                    System.out.println("Access granted!\nWelcome '" + currentUser + "'");
+                    System.out.println("Access granted!\nWelcome: " + currentUser + " ");
                     System.out.println("Do you want to:\n(1)Show your information?\n(2)Change your name?\n(3)Change your password?\n(4)Exit");
                     System.out.print("Enter your choice: ");
 
@@ -65,6 +65,7 @@ public class Projectcs102 {
                     if (choice.equals("1")) { //Showing information
                         if (currentUser instanceof Student) {
                             Student currentStudent = (Student) (currentUser);
+                            System.out.println("");
                             System.out.println("Do you want to show your awards sorted? (Y/N)");
                             choice = userInput.nextLine();
                             if (choice.equalsIgnoreCase("y")) {
@@ -167,6 +168,9 @@ public class Projectcs102 {
                         dateAccepted = true;
                     } else {
                         System.out.println("Invalid format or impossible date.");
+                        System.out.println("");
+                        System.out.print("Date of birth: ");
+
                     }
                 }
                 String Date = dateToTest;
@@ -182,6 +186,7 @@ public class Projectcs102 {
                         passwordAccepted = true;
                     } else {
                         System.out.println("Invalid password!\nIt must be at least 6 characters and contain at least one capital letter.");
+                        System.out.println("");
                         System.out.print("Password: ");
                     }
                 }

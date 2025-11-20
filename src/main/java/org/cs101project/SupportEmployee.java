@@ -4,23 +4,26 @@ public class SupportEmployee extends Employee {
 
     private String jobDescription;
 
-    public SupportEmployee(String fname,String lname,String username,String password,String birthDate,String department, String officeNum, String jobDesc){
-        super(fname, lname, username, password, birthDate, "Support Employee", department,officeNum);
+    public SupportEmployee(String fname, String lname, String username, String password, String birthDate, String department, String officeNum, String jobDesc) {
+        super(fname, lname, username, password, birthDate, "Support Employee", department, officeNum);
         this.jobDescription = jobDesc;
     }
 
-    public SupportEmployee(String fname,String lname,String username,String password,String birthDate,String department, String officeNum, String jobDesc,boolean isEncrypted){
-        super(fname, lname, username, password, birthDate, "Support Employee", department,officeNum, isEncrypted);
+    public SupportEmployee(String fname, String lname, String username, String password, String birthDate, String department, String officeNum, String jobDesc, boolean isEncrypted) {
+        super(fname, lname, username, password, birthDate, "Support Employee", department, officeNum, isEncrypted);
         this.jobDescription = jobDesc;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + "," + this.getJobDescription();
     }
-    public String getJobDescription(){
+
+    public String getJobDescription() {
         return this.jobDescription;
     }
-    public void setJobDescription(String jobDesc){
+
+    public void setJobDescription(String jobDesc) {
         this.jobDescription = jobDesc;
     }
 }

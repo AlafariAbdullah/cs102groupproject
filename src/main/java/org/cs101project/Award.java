@@ -1,7 +1,6 @@
 package org.cs101project;
 
-
-public class Award implements Comparable<Award>{
+public class Award implements Comparable<Award> {
 
     private String date;
     private String awardName;
@@ -12,10 +11,12 @@ public class Award implements Comparable<Award>{
         this.date = date;
         this.issuer = issuer;
     }
+
     @Override
-    public String toString(){
-        return this.getAwardName() + "-" + this.getDate() + "-" + this.getIssuer() ;
+    public String toString() {
+        return this.getAwardName() + "-" + this.getDate() + "-" + this.getIssuer();
     }
+
     public String getDate() {
         return date;
     }

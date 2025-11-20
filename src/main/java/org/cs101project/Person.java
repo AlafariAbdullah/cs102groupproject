@@ -17,6 +17,7 @@ public class Person {
         this.birthDate = birthDate;
         this.type = type;
     }
+
     // To handle importing existing users without re-encrypting the passowrd
     public Person(String name, String surname, String username, String password, String birthDate, String type, boolean isEncrypted) {
         this.firstName = name;
@@ -28,16 +29,18 @@ public class Person {
     }
 
     @Override
-    public String toString(){
-        return this.getType() + "," +this.getFirstName() + "," + this.getSurName() + "," + this.getUserName() + "," + this.getPassword() + "," + this.getBirthDate();
+    public String toString() {
+        return this.getType() + "," + this.getFirstName() + "," + this.getSurName() + "," + this.getUserName() + "," + this.getPassword() + "," + this.getBirthDate();
     }
+
     public String getFirstName() {
         return this.firstName;
     }
 
-    public String getType(){
+    public String getType() {
         return this.type;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -73,7 +76,8 @@ public class Person {
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
-    public void setType(String type){
+
+    public void setType(String type) {
         this.type = type;
     }
 

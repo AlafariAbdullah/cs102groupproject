@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Base64;
 
 public class Cipher {
+
     // ================= Substitution cipher =================
     public static String encryptSubstitution(String plaintext) {
         char[] encryptedArr = new char[plaintext.length()];
@@ -24,7 +25,6 @@ public class Cipher {
     }
 
     // ================= TEA22 (Tiny Encryption Algorithm) =================
-
     private static final String KEY = "1234567890ABCDEF";   // 16-byte key
     private static final int[] KEY_WORDS = divideKeyToSections(KEY); // k0..k3
 
@@ -60,7 +60,6 @@ public class Cipher {
     }
 
     // ================= Helpers =================
-
     private static byte[] padToBlockSize(byte[] data, int blockSize) {
         int paddedLength = ((data.length + blockSize - 1) / blockSize) * blockSize;
         byte[] padded = new byte[paddedLength];
@@ -76,38 +75,35 @@ public class Cipher {
         return Arrays.copyOf(data, index);
     }
 
-
     private static int[] divideKeyToSections(String key) {
         byte[] keyBytes = key.getBytes();
-        return new int[] {
-                bytesToInt(keyBytes, 0),
-                bytesToInt(keyBytes, 4),
-                bytesToInt(keyBytes, 8),
-                bytesToInt(keyBytes, 12)
+        return new int[]{
+            bytesToInt(keyBytes, 0),
+            bytesToInt(keyBytes, 4),
+            bytesToInt(keyBytes, 8),
+            bytesToInt(keyBytes, 12)
         };
     }
 
-
     // Convert 4 bytes starting at offset into int
     private static int bytesToInt(byte[] data, int offset) {
-        return ((data[offset]     & 0xFF) << 24) |
-               ((data[offset + 1] & 0xFF) << 16) |
-               ((data[offset + 2] & 0xFF) <<  8) |
-               ( data[offset + 3] & 0xFF);
+        return ((data[offset] & 0xFF) << 24)
+                | ((data[offset + 1] & 0xFF) << 16)
+                | ((data[offset + 2] & 0xFF) << 8)
+                | (data[offset + 3] & 0xFF);
     }
 
     // Write int as 4 big-endian bytes into dest at offset
     private static void intToBytes(int value, byte[] dest, int offset) {
-        dest[offset]     = (byte) (value >>> 24);
+        dest[offset] = (byte) (value >>> 24);
         dest[offset + 1] = (byte) (value >>> 16);
         dest[offset + 2] = (byte) (value >>> 8);
         dest[offset + 3] = (byte) (value);
     }
 
-
     private static void encryptTea22Block(byte[] in, int inOffset,
-                                          byte[] out, int outOffset,
-                                          int[] k) {
+            byte[] out, int outOffset,
+            int[] k) {
         int v0 = bytesToInt(in, inOffset);
         int v1 = bytesToInt(in, inOffset + 4);
 
@@ -126,8 +122,8 @@ public class Cipher {
     }
 
     private static void decryptTea22Block(byte[] in, int inOffset,
-                                          byte[] out, int outOffset,
-                                          int[] k) {
+            byte[] out, int outOffset,
+            int[] k) {
         int v0 = bytesToInt(in, inOffset);
         int v1 = bytesToInt(in, inOffset + 4);
 

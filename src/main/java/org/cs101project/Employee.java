@@ -5,20 +5,23 @@ public class Employee extends Person {
     private String department;
     private String officeNumber;
 
-    public Employee(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum){
-        super(fname, lname,username,password,birthDate, type);
+    public Employee(String fname, String lname, String username, String password, String birthDate, String type, String department, String officeNum) {
+        super(fname, lname, username, password, birthDate, type);
         this.department = department;
         this.officeNumber = officeNum;
     }
-    public Employee(String fname,String lname,String username,String password,String birthDate, String type,String department, String officeNum, boolean isEncrypted){
-        super(fname, lname,username,password,birthDate, type,true);
+
+    public Employee(String fname, String lname, String username, String password, String birthDate, String type, String department, String officeNum, boolean isEncrypted) {
+        super(fname, lname, username, password, birthDate, type, true);
         this.department = department;
         this.officeNumber = officeNum;
     }
+
     @Override
-    public String toString(){
-        return super.toString() + ","+this.getDepartment()+","+this.getOfficeNumber();
+    public String toString() {
+        return super.toString() + "," + this.getDepartment() + "," + this.getOfficeNumber();
     }
+
     public String getDepartment() {
         return department;
     }
